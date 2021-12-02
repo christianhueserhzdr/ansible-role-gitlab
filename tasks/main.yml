@@ -35,4 +35,11 @@
   ansible.builtin.import_tasks: configure.yml
   become: yes
 
+- name: Enable features deployed behind feature flags
+  ansible.builtin.command:
+    cmd: "gitlab-rails runner 'Feature.enable(:{{ item }})' "
+  loop:
+    - "user_mode_in_session"
+
+
 ...
